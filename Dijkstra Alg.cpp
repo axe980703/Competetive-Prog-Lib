@@ -13,7 +13,8 @@ int main() {
     vector<vector<pair<int, int>>> g(n);
 
     for(int i = 0; i < n; i++) {
-        for(int j = 0; j < g[i].size(); j++) {
+        cin >> end;
+        for(int j = 0; j < end; j++) {
             cin >> g[i][j].first >> g[i][j].second;
         }
     }
@@ -23,7 +24,8 @@ int main() {
 
     d.assign(n, BIG);
 
-    start = 3;
+    start = 0;
+    end = 5;
 
     d[start] = 0;
 
