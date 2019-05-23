@@ -10,13 +10,17 @@ int main() {
     int start, end, n;
     cin >> n;
 
-    vector<vector<pair<int, int>>> g(n);
+    vector< vector< pair<int, int> > > g(n);
 
     for(int i = 0; i < n; i++) {
-        cin >> end;
-        for(int j = 0; j < end; j++) {
-            cin >> g[i][j].first >> g[i][j].second;
+        int num, vertex, length;
+        vector< pair<int, int> > tmp;
+        cin >> num;
+        for(int j = 0; j < num; j++) {
+            cin >> vertex >> length
+            tmp.push_back(make_pair(vertex, length));
         }
+        g[i] = tmp;
     }
 
     vector<int> d(n), label(n);
@@ -25,7 +29,7 @@ int main() {
     d.assign(n, BIG);
 
     start = 0;
-    end = 5;
+    end = 3;
 
     d[start] = 0;
 
@@ -39,8 +43,6 @@ int main() {
             }
         }
         used[vert] = 1;
-        if(vert == end)
-            break;
         for(int j = 0; j < g[vert].size(); j++) {
             int to = g[vert][j].first, way = g[vert][j].second;
             if(d[vert] + way < d[to]) {
@@ -48,24 +50,17 @@ int main() {
                 label[to] = vert;
             }
         }
+        first = 1;
     }
 
     cout << "Path from start to end:\n";
     vector<int> path;
-    int way = 0;
     for(int v = end; v != start; v = label[v]) {
-        way += d[v];
         path.push_back(v);
     }
     path.push_back(start);
     reverse(path.begin(), path.end());
     for(int i = 0; i < path.size(); i++)
         cout << path[i] << " -> ";
-    cout << "== " << way;
+    cout << "== " << d[end];
 }
-
-
-
-
-
-
