@@ -10,7 +10,7 @@ const double EPS = 1e-9;
 const double PI = acos(-1);
 
 
-int dijkstra(vector<vector<int>>* gr, int s, int f) {
+int dijkstra(vector<vector<int>> &gr, int s, int f) {
     int n = gr->size() - 1;
     vector<char> used(n + 1);
     vector<int> dist(n + 1, INF);
@@ -45,5 +45,5 @@ int main() {
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             cin >> gr[i][j];
-    cout << dijkstra(&gr, s, f);
+    cout << dijkstra(gr, s, f);
 }
