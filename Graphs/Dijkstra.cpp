@@ -11,7 +11,7 @@ const double PI = acos(-1);
 
 
 int dijkstra(vector<vector<int>> &gr, int s, int f) {
-    int n = gr->size() - 1;
+    int n = gr.size() - 1;
     vector<char> used(n + 1);
     vector<int> dist(n + 1, INF);
     dist[s] = 0;
@@ -24,7 +24,7 @@ int dijkstra(vector<vector<int>> &gr, int s, int f) {
             break;
         used[v] = 1;
         for (int j = 1; j <= n; j++) {
-            int lng = gr->at(v)[j];
+            int lng = gr[v][j];
             if (lng < 0)
                 continue;
             dist[j] = min(dist[j], dist[v] + lng);
