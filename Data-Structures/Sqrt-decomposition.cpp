@@ -1,5 +1,41 @@
 class sqrt_dec {
     int len, n;
+    vector<int> blc, a;
+
+public:
+    sqrt_dec(int a[], int n) {
+        len = int(sqrt(n) + 1);
+        blc = vector<int>(len);
+        this->a.assign(a, a + n);
+        this->n = n;
+    }
+
+    void pre_sum() {
+        for (int i = 0; i < n; i++)
+            blc[i / len] += a[i];
+    }
+
+    int get_sum(int l, int r) {
+        int c_l = l / len, c_r = r / len, end = (c_l + 1) * len - 1;
+        int sum = 0;
+        if (c_l == c_r) {
+            for (int i = l; i <= r; i++)
+                sum += a[i];
+        } else {
+            for (int i = l; i <= end; i++)
+                sum += a[i];
+            for (int i = c_l + 1; i <= c_r - 1; i++)
+                sum += blc[i];
+            for (int i = c_r * len; i <= r; i++)
+                sum += a[i];
+        }
+        return sum;
+    }
+};
+
+
+class sqrt_dec_sum_max {
+    int len, n;
     vector<int> blc_sum, blc_max, a_sum, a_max;
  
 public:
