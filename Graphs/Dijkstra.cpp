@@ -27,6 +27,7 @@ void dijkstra_sparse(vector<vector<edge>> &gr, int n, int s) {
         }
     }
     // d[v] now contains value of shortest path from s to v, if path doesn't exists then d[v] = INF
+    // p[v] contains direct parent of vertex v on shortest path from s, if v isn't reacheble then p[v] = 0
 }
  
 int main() {
