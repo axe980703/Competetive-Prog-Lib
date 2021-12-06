@@ -5,7 +5,7 @@ int parent[N], rnk[N], sz[N];
 void make_set(int v) {
     parent[v] = v;
     rnk[v] = 0;
-	sz[v] = 1;	
+    sz[v] = 1;	
 }
  
 int find_set(int v) {
@@ -19,8 +19,8 @@ void union_sets(int a, int b) {
         if (rnk[a] < rnk[b])
             swap(a, b);
         parent[b] = a;
-		sz[a] += sz[b];
-		sz[b] = 0;
+        sz[a] += sz[b];
+        sz[b] = 0;
         if (rnk[a] == rnk[b])
             ++rnk[a];
     }
