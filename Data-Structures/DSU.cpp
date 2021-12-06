@@ -5,7 +5,7 @@ int parent[N], rnk[N], sz[N];
 void make_set(int v) {
     parent[v] = v;
     rnk[v] = 0;
-	sz[v] = 1;
+	sz[v] = 1;	
 }
  
 int find_set(int v) {
