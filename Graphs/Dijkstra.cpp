@@ -26,7 +26,7 @@ void dijkstra_sparse(vector<vector<edge>> &gr, int n, int s) {
             }
         }
     }
-    // d[v] now contains shortest path from s to v, if path doesn't exists then d[v] = INF
+    // d[v] now contains value of shortest path from s to v, if path doesn't exists then d[v] = INF
 }
  
 int main() {
