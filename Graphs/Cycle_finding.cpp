@@ -2,13 +2,7 @@
  
 using namespace std;
  
-const int INF = 1e9 + 3;
 const int N = 1e5 + 1;
-const int MOD = 998244353;
-const double EPS = 1e-9;
- 
-const double PI = acos(-1);
- 
  
 vector<int> gr[N];
 vector<char> color(N);
@@ -34,7 +28,7 @@ bool dfs(int vert) {
 }
  
  
-void solve() {
+int main() {
     int n, m;
     cin >> n >> m;
     for (int i = 0; i < m; i++) {
@@ -59,17 +53,5 @@ void solve() {
         cycle.pop_back();
         for (int i = 0; i < cycle.size(); ++i)
             cout << cycle[i] << ' ';
-    }
-}
- 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0), cout.tie(0);
-    freopen("cycle.in", "r", stdin);
-    freopen("cycle.out", "w", stdout);
-    int t;
-    t = 1;
-    while (t--) {
-        solve();
     }
 }
