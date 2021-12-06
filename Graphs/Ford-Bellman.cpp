@@ -2,84 +2,55 @@
 
 using namespace std;
 
-const long long INF = 1e18 + 3;
-const int N = 1e4;
-const int MOD = 998244353;
-const double EPS = 1e-9;
+const long long INF = 2e18 + 7;
 
-const double PI = acos(-1);
-
-class edge {
-public:
-    int from;
-    int to;
-    long long w;
-
-    edge(int from, int to, long long w) : from(from), to(to), w(w) {};
+struct edge {
+    int u, v, w;
 };
 
-void ford_bellman(vector<edge> &gr, int n, int s) {
+void ford_bellman(vector<edge> &edgs, int n, int s) {
     vector<long long> d(n + 1, INF);
     d[s] = 0;
-    set<int> neg;
+    vector<int> neg;
     for (int i = 0; i < n; i++) {
-        for (edge e : gr) {
-            if (d[e.from] < INF && d[e.from] + e.w < d[e.to]) {
+        for (auto[u, v, w]: edgs) {
+            if (d[u] == INF) continue;
+            if (d[u] + w < d[v]) {
+                d[v] = d[u] + w;
                 if (i == n - 1)
-                    neg.insert(e.to);
-                else
-                    d[e.to] = d[e.from] + e.w;
+                    neg.push_back(u);
             }
         }
     }
-    vector<int> g[n + 1];
-    for (edge e : gr)
-        g[e.from].push_back(e.to);
-    vector<char> used(n + 1, 0);
-
-    function<void(int)> dfs = [&](int vert) {
-        used[vert] = 1;
-        for (int x : g[vert])
-            if (!used[x])
-                dfs(x);
+    // now processing cases of negative cycles
+    vector<int> gr[n + 1];
+    for (auto[u, v, w]: edgs)
+        gr[u].push_back(v);
+    vector<char> used(n + 1);
+    function<void(int)> dfs = [&](int cur) {
+        used[cur] = 1;
+        d[cur] = -1;
+        for (int v : gr[cur])
+            if (!used[v])
+                dfs(v);
     };
-
-    for (int x : neg) {
-        if (!used[x])
-            dfs(x);
+    for (int v : neg) {
+        if (!used[v])
+            dfs(v);
     }
-    for (int x = 1; x <= n; x++) {
-        if (d[x] == INF)
-            cout << '*';
-        else if (used[x])
-            cout << '-';
-        else
-            cout << d[x];
-        cout << endl;
-    }
+    // d[v] now contains value of shortest path from s, if v is reachable from negative cycle then d[v] = -1,
+    // if v isn't reachable at all then d[v] = INF
 }
 
-void solve() {
+int main() {
     int n, m, s;
     cin >> n >> m >> s;
     vector<edge> gr;
     for (int i = 0; i < m; i++) {
-        int b, e;
-        long long w;
-        cin >> b >> e >> w;
-        gr.push_back(edge(b, e, w));
+        int u, v, w;
+        cin >> u >> v >> w;
+        gr.push_back({u, v, w});
     }
     ford_bellman(gr, n, s);
 }
 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0), cout.tie(0);
-    freopen("path.in", "r", stdin);
-    freopen("path.out", "w", stdout);
-    int t;
-    t = 1;
-    while (t--) {
-        solve();
-    }
-}
